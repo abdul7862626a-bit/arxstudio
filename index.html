@@ -792,6 +792,70 @@
   @media (max-width: 768px) {
     .hamburger { display: flex; }
   }
+
+  /* BLOG */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .blog-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .blog-card:hover { transform: translateY(-4px); border-color: rgba(198,255,0,0.25); }
+  .blog-thumb {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem;
+  }
+  .blog-body { padding: 1.5rem; }
+  .blog-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.85rem;
+  }
+  .blog-tag {
+    background: rgba(198,255,0,0.1);
+    border: 1px solid rgba(198,255,0,0.25);
+    color: var(--lime);
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .blog-date { font-size: 0.78rem; color: var(--text-muted); }
+  .blog-card h3 {
+    font-family: "Syne", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .blog-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem; }
+  .blog-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--card-border);
+  }
+  .read-time { font-size: 0.78rem; color: var(--text-muted); }
+  .blog-cta {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--lime);
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .blog-cta:hover { opacity: 0.8; }
+  @media (max-width: 768px) {
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-thumb { height: 140px; }
+  }
 </style>
 </head>
 <body>
@@ -806,6 +870,7 @@
     <li><a href="#services" onclick="closeMenu()">Services</a></li>
     <li><a href="#work" onclick="closeMenu()">Work</a></li>
     <li><a href="#process" onclick="closeMenu()">Process</a></li>
+    <li><a href="#blog" onclick="closeMenu()">Blog</a></li>
     <li><a href="#booking" class="nav-cta" onclick="closeMenu()">Book a Call →</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -1184,6 +1249,70 @@
   </div>
 </section>
 
+<!-- BLOG -->
+<section id="blog" style="background: rgba(255,255,255,0.01);">
+  <div class="fade-in">
+    <div class="section-tag">Our Blog</div>
+    <h2>Latest <em>Insights</em></h2>
+  </div>
+  <div class="blog-grid fade-in">
+
+    <div class="blog-card">
+      <div class="blog-thumb" style="background: linear-gradient(135deg, #0d1117, #1a2744);">
+        <span>🌐</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-tag">Web Development</span>
+          <span class="blog-date">May 2026</span>
+        </div>
+        <h3>Why Every Business in Pakistan Needs a Website in 2026</h3>
+        <p>In today's digital world, not having a website means losing customers every single day. Here's why your business needs one right now.</p>
+        <div class="blog-footer">
+          <span class="read-time">⏱ 4 min read</span>
+          <a href="#booking" class="blog-cta">Read More →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card">
+      <div class="blog-thumb" style="background: linear-gradient(135deg, #1a0d17, #2d1030);">
+        <span>🚀</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-tag">SEO Tips</span>
+          <span class="blog-date">May 2026</span>
+        </div>
+        <h3>5 Simple Ways to Rank Your Website on Google for Free</h3>
+        <p>You don't need to spend money on ads to get on Google's first page. These 5 free SEO strategies actually work for small businesses.</p>
+        <div class="blog-footer">
+          <span class="read-time">⏱ 5 min read</span>
+          <a href="#booking" class="blog-cta">Read More →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card">
+      <div class="blog-thumb" style="background: linear-gradient(135deg, #0d1a0d, #1a3010);">
+        <span>💡</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-tag">E-Commerce</span>
+          <span class="blog-date">April 2026</span>
+        </div>
+        <h3>How to Start an Online Store in Pakistan — Complete Guide</h3>
+        <p>From choosing the right platform to accepting payments online — everything you need to know to launch your e-commerce store in Pakistan.</p>
+        <div class="blog-footer">
+          <span class="read-time">⏱ 6 min read</span>
+          <a href="#booking" class="blog-cta">Read More →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 <!-- FOOTER -->
 <footer>
   <div>
