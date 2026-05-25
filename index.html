@@ -534,7 +534,7 @@
   .submit-btn {
     width: 100%;
     background: var(--lime);
-    color: var(--dark);
+    color: #0E0E10;
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
@@ -867,6 +867,29 @@
     .blog-grid { grid-template-columns: 1fr; }
     .blog-thumb { height: 140px; }
   }
+
+  /* HERO SLIDE UP ANIMATIONS */
+  .su { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .su.visible { opacity: 1 !important; transform: translateY(0) !important; }
+
+  /* MWORD - magnetic words */
+  .mword { display: inline-block; transition: transform 0.25s cubic-bezier(0.23,1,0.32,1); }
+
+  /* Ring zone slide in */
+  #ringZone { opacity: 0; transform: translateX(60px); transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s; }
+  #ringZone.visible { opacity: 1; transform: translateX(0); }
+  
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Mobile - hide rings on small screens */
+  @media (max-width: 768px) {
+    #ringZone { display: none; }
+    .ring-mini-card { display: none; }
+  }
+
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D71TRC3735"></script>
@@ -940,26 +963,24 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-blob blob1"></div>
-  <div class="hero-bg-blob blob2"></div>
-  <div class="hero-bg-blob blob3"></div>
+<section class="hero" id="heroSection" style="position:relative; overflow:hidden;">
+  <canvas id="heroBgCanvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
 
-  <div class="hero-content">
-    <div class="hero-tag">Available for projects in Sahiwal & Pakistan</div>
-    <h1>
-      We Build Websites
-      <span class="line2">That Actually</span>
-      <span class="line3">Get Results.</span>
+  <div class="hero-content" style="position:relative;z-index:2;">
+    <div class="hero-tag su" style="opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease;">Available for projects in Sahiwal & Pakistan</div>
+    <h1 class="su" style="opacity:0;transform:translateY(40px);transition:opacity 0.7s ease 0.15s,transform 0.7s ease 0.15s;">
+      <span class="mword">We</span> <span class="mword">Build</span> <span class="mword">Websites</span>
+      <span class="line2"><span class="mword">That</span> <span class="mword">Actually</span></span>
+      <span class="line3"><span class="mword">Get</span> <span class="mword">Results.</span></span>
     </h1>
-    <p class="hero-desc">
+    <p class="hero-desc su" style="opacity:0;transform:translateY(40px);transition:opacity 0.7s ease 0.3s,transform 0.7s ease 0.3s;">
       Fresh, fast & playful web experiences for brands that want to stand out. From landing pages to full platforms — we make the web feel alive.
     </p>
-    <div class="hero-actions">
-      <a href="#booking" class="btn-primary">Start a Project ✦</a>
-      <a href="#work" class="btn-secondary">See Our Work →</a>
+    <div class="hero-actions su" style="opacity:0;transform:translateY(40px);transition:opacity 0.7s ease 0.45s,transform 0.7s ease 0.45s;">
+      <a href="#booking" class="btn-primary mword">Start a Project ✦</a>
+      <a href="#work" class="btn-secondary mword">See Our Work →</a>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats su" style="opacity:0;transform:translateY(40px);transition:opacity 0.7s ease 0.6s,transform 0.7s ease 0.6s;">
       <div>
         <div class="stat-num">50<span>+</span></div>
         <div class="stat-label">Projects Delivered</div>
@@ -975,27 +996,25 @@
     </div>
   </div>
 
-  <div class="hero-side">
-    <div class="float-card">
-      <div class="float-icon" style="background:rgba(198,255,0,0.12); font-size:1.2rem;">⚡</div>
-      <div>
-        <p>Fast Delivery</p>
-        <span>7-14 days turnaround</span>
+  <div class="hero-side" style="position:relative;z-index:2;">
+    <!-- Rotating rings + orbit dots -->
+    <div id="ringZone" style="position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" class="su" style="opacity:0;transform:translateX(60px);transition:opacity 0.8s ease 0.5s,transform 0.8s ease 0.5s;">
+      <canvas id="orbitCanvas" style="position:absolute;width:220px;height:220px;" width="220" height="220"></canvas>
+      <div id="ringR1" style="position:absolute;width:210px;height:210px;border-radius:50%;border:1px solid rgba(198,255,0,0.12);"></div>
+      <div id="ringR2" style="position:absolute;width:160px;height:160px;border-radius:50%;border:1px dashed rgba(198,255,0,0.2);"></div>
+      <div id="ringR3" style="position:absolute;width:110px;height:110px;border-radius:50%;border:1px solid rgba(198,255,0,0.3);"></div>
+      <div id="ringCenter" style="width:60px;height:60px;background:rgba(198,255,0,0.08);border:1px solid rgba(198,255,0,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;position:relative;z-index:2;transition:transform 0.3s,box-shadow 0.3s;">✦</div>
+      <!-- Mini cards -->
+      <div class="ring-mini-card" style="position:absolute;top:5px;right:-20px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:8px 12px;font-size:11px;color:var(--white);display:flex;align-items:center;gap:6px;white-space:nowrap;animation:float 3s ease-in-out infinite;">
+        <span style="width:6px;height:6px;background:#C6FF00;border-radius:50%;display:inline-block;"></span>50+ Projects
       </div>
-    </div>
-    <div class="float-card">
-      <div class="float-icon" style="background:rgba(95,240,255,0.12); font-size:1.2rem;">🎨</div>
-      <div>
-        <p>Custom Design</p>
-        <span>100% unique, no templates</span>
+      <div class="ring-mini-card" style="position:absolute;bottom:15px;right:-30px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:8px 12px;font-size:11px;color:var(--white);display:flex;align-items:center;gap:6px;white-space:nowrap;animation:float 3s ease-in-out infinite 1s;">
+        <span style="width:6px;height:6px;background:#5FF0FF;border-radius:50%;display:inline-block;"></span>98% Happy
       </div>
-    </div>
-    <div class="float-card">
-      <div class="float-icon" style="background:rgba(255,95,160,0.12); font-size:1.2rem;">📱</div>
-      <div>
-        <p>Mobile First</p>
-        <span>Pixel-perfect responsive</span>
+      <div class="ring-mini-card" style="position:absolute;top:40%;left:-40px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:8px 12px;font-size:11px;color:var(--white);display:flex;align-items:center;gap:6px;white-space:nowrap;animation:float 3s ease-in-out infinite 2s;">
+        <span style="width:6px;height:6px;background:#FF5FA0;border-radius:50%;display:inline-block;"></span>Fast Delivery
       </div>
+      <div id="interactLabel" style="position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--lime);letter-spacing:0.1em;text-transform:uppercase;opacity:0;transition:opacity 0.3s;">✦ INTERACT</div>
     </div>
   </div>
 </section>
@@ -1193,7 +1212,7 @@
   <div class="section-tag fade-in">Book a Project</div>
   <div class="booking-wrapper">
     <div class="booking-info fade-in">
-      <h2>Let's Build Something <em>Great Together</em></h2>
+      <h2 style="color:#ffffff;">Let's Build Something <em>Great Together</em></h2>
       <p>Ready to take your online presence to the next level? Fill out the form and we'll get back to you within 24 hours with a free consultation and quote.</p>
       <div class="contact-methods">
         <div class="contact-item">
@@ -1229,8 +1248,8 @@
 
     <div class="booking-form fade-in">
       <div id="formContent">
-        <h3>Send a Project Request</h3>
-        <p>Fill in the details below and we'll reach out to discuss your project.</p>
+        <h3 style="color:#ffffff;">Send a Project Request</h3>
+        <p style="color:#ffffff;">Fill in the details below and we'll reach out to discuss your project.</p>
 
         <div class="form-row">
           <div class="form-group">
@@ -1471,7 +1490,7 @@ function animateRing() {
 }
 animateRing();
 
-// Fade in observer
+// Fade in observer (for .fade-in and .su and #ringZone)
 const observer = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -1480,6 +1499,192 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Entrance animations on load
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.su').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 150);
+    });
+    const rz = document.getElementById('ringZone');
+    if(rz) setTimeout(() => rz.classList.add('visible'), 500);
+  }, 100);
+});
+
+// MAGNETIC WORDS
+const MAG_STRENGTH = 60;
+const MAG_PULL = 0.42;
+document.addEventListener('mousemove', e => {
+  document.querySelectorAll('.mword').forEach(el => {
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < MAG_STRENGTH) {
+      const p = 1 - (dist / MAG_STRENGTH);
+      el.style.transform = `translate(${dx*p*MAG_PULL}px, ${dy*p*MAG_PULL}px)`;
+      ring.style.width = '48px'; ring.style.height = '48px';
+    } else {
+      el.style.transform = '';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    }
+  });
+});
+
+// HERO BACKGROUND CANVAS - particles + grid + spotlight
+(function initHeroBg() {
+  const canvas = document.getElementById('heroBgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const hero = document.getElementById('heroSection');
+
+  function resize() {
+    canvas.width = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Particles
+  const particles = [];
+  for (let i = 0; i < 55; i++) {
+    particles.push({
+      x: Math.random() * 1200,
+      y: Math.random() * 600,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.8 + 0.4,
+      alpha: Math.random() * 0.45 + 0.1,
+      color: Math.random() > 0.7 ? '198,255,0' : Math.random() > 0.5 ? '95,240,255' : '255,255,255',
+    });
+  }
+
+  let t = 0;
+  function loop() {
+    t += 0.01;
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    const rect = hero.getBoundingClientRect();
+    const lx = mx - rect.left;
+    const ly = my - rect.top;
+
+    // Grid
+    ctx.strokeStyle = 'rgba(198,255,0,0.03)';
+    ctx.lineWidth = 1;
+    for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+
+    // Spotlight on grid
+    const grd = ctx.createRadialGradient(lx, ly, 0, lx, ly, 200);
+    grd.addColorStop(0, 'rgba(198,255,0,0.07)');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+
+    // Floating blobs
+    const b1x = W*0.78 + Math.sin(t*0.5)*25 + (lx - W/2)*0.015;
+    const b1y = H*0.35 + Math.cos(t*0.4)*18 + (ly - H/2)*0.015;
+    const g1 = ctx.createRadialGradient(b1x,b1y,0,b1x,b1y,110);
+    g1.addColorStop(0,'rgba(198,255,0,0.07)'); g1.addColorStop(1,'transparent');
+    ctx.fillStyle = g1; ctx.beginPath(); ctx.arc(b1x,b1y,110,0,Math.PI*2); ctx.fill();
+
+    const b2x = W*0.88 + Math.cos(t*0.3)*20;
+    const b2y = H*0.7 + Math.sin(t*0.6)*14;
+    const g2 = ctx.createRadialGradient(b2x,b2y,0,b2x,b2y,80);
+    g2.addColorStop(0,'rgba(95,240,255,0.05)'); g2.addColorStop(1,'transparent');
+    ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(b2x,b2y,80,0,Math.PI*2); ctx.fill();
+
+    // Particles
+    particles.forEach(p => {
+      const dx = lx - p.x, dy = ly - p.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 130) { p.vx += dx * 0.0003; p.vy += dy * 0.0003; }
+      p.vx *= 0.99; p.vy *= 0.99;
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${p.color},${p.alpha})`; ctx.fill();
+    });
+
+    // Connect particles
+    particles.forEach((a, i) => {
+      particles.slice(i+1).forEach(b => {
+        const dx = a.x-b.x, dy = a.y-b.y;
+        const d = Math.sqrt(dx*dx+dy*dy);
+        if (d < 75) {
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle = `rgba(198,255,0,${0.07*(1-d/75)})`; ctx.lineWidth=0.5; ctx.stroke();
+        }
+      });
+    });
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ROTATING RINGS + ORBIT DOTS
+(function initRings() {
+  const r1 = document.getElementById('ringR1');
+  const r2 = document.getElementById('ringR2');
+  const r3 = document.getElementById('ringR3');
+  const ce = document.getElementById('ringCenter');
+  const canvas = document.getElementById('orbitCanvas');
+  const label = document.getElementById('interactLabel');
+  if (!r1 || !canvas) return;
+  const ctx = canvas.getContext('2d');
+  let t = 0, targetRot = 0, currentRot = 0;
+
+  const dots = [
+    {r:103,spd:0.008,off:0,c:'#C6FF00',s:5},
+    {r:78,spd:-0.013,off:2,c:'#5FF0FF',s:4},
+    {r:53,spd:0.022,off:4,c:'#FF5FA0',s:3},
+    {r:103,spd:0.008,off:3.14,c:'#C6FF00',s:3},
+    {r:78,spd:-0.013,off:5,c:'#5FF0FF',s:3},
+  ];
+
+  document.addEventListener('mousemove', e => {
+    const wrap = document.getElementById('ringZone');
+    if (!wrap) return;
+    const wr = wrap.getBoundingClientRect();
+    const wcx = wr.left + wr.width/2;
+    const wcy = wr.top + wr.height/2;
+    targetRot = Math.atan2(e.clientY - wcy, e.clientX - wcx) * (180/Math.PI);
+    const dist = Math.sqrt((e.clientX-wcx)**2 + (e.clientY-wcy)**2);
+    if (dist < 130) {
+      ce.style.boxShadow = `0 0 ${dist*0.35}px rgba(198,255,0,0.5)`;
+      ce.style.transform = `rotate(${targetRot}deg) scale(1.1)`;
+      if(label) label.style.opacity = '1';
+    } else {
+      ce.style.boxShadow = 'none';
+      ce.style.transform = '';
+      if(label) label.style.opacity = '0';
+    }
+  });
+
+  (function animRings() {
+    t += 0.01;
+    currentRot += (targetRot - currentRot) * 0.05;
+    if(r1) r1.style.transform = `rotate(${t*18}deg)`;
+    if(r2) r2.style.transform = `rotate(${-t*28 + currentRot*0.1}deg)`;
+    if(r3) r3.style.transform = `rotate(${t*45 + currentRot*0.2}deg)`;
+
+    ctx.clearRect(0, 0, 220, 220);
+    dots.forEach(d => {
+      const a = t * d.spd * 100 + d.off + currentRot * (Math.PI/180) * 0.04;
+      const x = 110 + Math.cos(a) * d.r;
+      const y = 110 + Math.sin(a) * d.r;
+      ctx.beginPath(); ctx.arc(x, y, d.s, 0, Math.PI*2);
+      ctx.fillStyle = d.c; ctx.shadowColor = d.c; ctx.shadowBlur = 8; ctx.fill(); ctx.shadowBlur = 0;
+      ctx.beginPath(); ctx.arc(110 + Math.cos(a-0.12)*d.r, 110 + Math.sin(a-0.12)*d.r, d.s*0.5, 0, Math.PI*2);
+      ctx.fillStyle = d.c + '55'; ctx.fill();
+    });
+    requestAnimationFrame(animRings);
+  })();
+})();
 
 // Service pills
 function togglePill(el) {
