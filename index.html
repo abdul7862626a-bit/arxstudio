@@ -1,31 +1,96 @@
-import Nav from "./components/Nav";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import Work from "./components/Work";
-import Process from "./components/Process";
-import Testimonials from "./components/Testimonials";
-import Booking from "./components/Booking";
-import Faq from "./components/Faq";
-import Blog from "./components/Blog";
-import Footer from "./components/Footer";
-import { ScrollTop } from "./components/Meta";
+@import "tailwindcss";
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-arx-dark text-white selection:bg-arx-yellow selection:text-black">
-      <ScrollTop />
-      <Nav />
-      <main>
-        <Hero />
-        <Services />
-        <Work />
-        <Process />
-        <Testimonials />
-        <Booking />
-        <Faq />
-        <Blog />
-      </main>
-      <Footer />
-    </div>
-  );
+@theme {
+  --color-arx-yellow: #f7ff4a;
+  --color-arx-yellow-dim: #d9e13d;
+  --color-arx-dark: #0a0a0a;
+  --color-arx-ink: #111111;
+  --color-arx-gray: #8a8a8a;
+  --color-arx-line: #1f1f1f;
+  --font-display: "Archivo Black", "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: #0a0a0a;
+  color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f7ff4a;
+}
+
+/* Animations */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-float-up {
+  animation: float-up 0.8s ease-out both;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Text selection */
+::selection {
+  background: #f7ff4a;
+  color: #0a0a0a;
+}
+
+/* Grid pattern bg */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Noise */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.4;
 }
