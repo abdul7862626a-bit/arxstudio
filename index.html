@@ -340,41 +340,54 @@
     font-weight: 600;
   }
 
-const portfolioProjects: PortfolioProject[] = [
-  {
-    title: "Creative Agency Website",
-    label: "Live Agency Preview",
-    href: "https://019ea1f5-25b9-7021-a137-7577b471d78f.arena.site/",
-    description:
-      "A professional agency website built to present services, showcase work, and build instant credibility for the brand.",
-    tags: ["Agency", "Portfolio", "Brand"],
-  },
-  {
-    title: "Food Restaurant Website",
-    label: "Live Restaurant Preview",
-    href: "https://019ea342-e3f6-7058-aa59-07606b53ec22.arena.site/",
-    description:
-      "A premium restaurant website with appetizing visuals, menu presentation, and a warm hospitality-focused experience.",
-    tags: ["Restaurant", "Food", "Landing Page"],
-  },
-  {
-    title: "SaaS Model Website",
-    label: "Live SaaS Preview",
-    href: "https://019ea363-75b6-7c24-9775-93d3b24e7cab.arena.site/",
-    description:
-      "A modern SaaS product website with strong hierarchy, feature sections, pricing, and conversion-focused layout.",
-    tags: ["SaaS", "Product", "Dashboard"],
-  },
-  {
-    title: "GreenBrand Studio Website",
-    label: "Live Brand Preview",
-    href: "https://019ea626-a7e0-7b98-bbf5-7611265e1e9f.arena.site/",
-    description:
-      "A sustainability-led studio website with bold visuals, editorial layout, and clean modern storytelling blocks.",
-    tags: ["Studio", "Creative", "Branding"],
-  },
-];
-
+  /* PORTFOLIO */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .portfolio-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .portfolio-item:hover { transform: translateY(-4px); border-color: rgba(198,255,0,0.25); }
+  .portfolio-thumb {
+    height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .portfolio-thumb::before {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: 0.12;
+  }
+  .p1 .portfolio-thumb { background: linear-gradient(135deg, #0d1117, #1a2744); }
+  .p2 .portfolio-thumb { background: linear-gradient(135deg, #1a0d17, #2d1030); }
+  .p3 .portfolio-thumb { background: linear-gradient(135deg, #0d1a0d, #1a3010); }
+  .p4 .portfolio-thumb { background: linear-gradient(135deg, #1a1400, #2d2200); }
+  .portfolio-info { padding: 1.5rem; }
+  .portfolio-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .portfolio-info p { font-size: 0.85rem; color: var(--text-muted); }
+  .portfolio-tags { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    color: var(--text-muted);
+    font-size: 0.73rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 
   /* PROCESS */
   .process-steps {
